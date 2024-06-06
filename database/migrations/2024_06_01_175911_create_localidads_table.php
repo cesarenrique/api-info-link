@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('localidads', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('provincias_id')->references('id')->on('provincias')->cascadeOnDelete();
+            $table->foreignId('provincia_id')->references('id')->on('provincias')->cascadeOnDelete();
             $table->string('name');
             $table->string('nameSEO');
-            $table->string("CP");
-            $table->string('latitud');
-            $table->string('longitud');
+            $table->string("CP")->nullable();
+            $table->string('latitud')->nullable();
+            $table->string('longitud')->nullable();
             $table->timestamps();
         });
     }
