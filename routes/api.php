@@ -26,3 +26,6 @@ Route::get('/localidades/provincia/{provinciaId}','\App\Http\Controllers\Localid
 Route::resource('personas','\App\Http\Controllers\Persona\PersonaController',['only'=>['index','store','show','update','destroy']]);
 Route::resource('alumnos','\App\Http\Controllers\Alumno\AlumnoController',['only'=>['index','store','show','update','destroy']]);
 Route::resource('profesores','\App\Http\Controllers\Profesor\ProfesorController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('grupotitulaciones','\App\Http\Controllers\GrupoTitulacion\GrupoTitulacionController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('ramatitulaciones','\App\Http\Controllers\RamaTitulacion\RamaTitulacionController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('centroestudios','\App\Http\Controllers\CentroEstudio\CentroEstudioController',['only'=>['index','store','show','update','destroy']]);

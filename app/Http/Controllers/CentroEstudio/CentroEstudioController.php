@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Profesor;
+namespace App\Http\Controllers\CentroEstudio;
 
 use App\Http\Controllers\Controller;
-use App\Models\Profesor;
+use App\Models\CentroEstudios;
 use Illuminate\Http\Request;
 
-class ProfesorController extends Controller
+class CentroEstudioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ProfesorController extends Controller
     public function index()
     {
         //
-        $profesores=Profesor::All();
+        $centros=CentroEstudios::All();
 
-        return response()->json(['data'=> $profesores],200);
+        return response()->json(['data'=> $centros],200);
     }
 
     /**
@@ -41,12 +41,9 @@ class ProfesorController extends Controller
     public function show(string $id)
     {
         //
-        $profesor=Profesor::findOrFail($id);
-        $persona=$profesor->persona;
-        $user=$persona->user;
-        $centroestudio=$persona->centroestudios;
-
-        return response()->json(['data'=> $profesor],200);
+        $centro=CentroEstudios::findOrFail($id);
+        $user=$centro->user;
+        return response()->json(['data'=> $centro],200);
     }
 
     /**
@@ -71,9 +68,8 @@ class ProfesorController extends Controller
     public function destroy(string $id)
     {
         //
-        $profesor=Profesor::findOrFail($id);
-        $profesor->delete();
-        return response()->json(['data'=> $profesor],200);
-
+        $centro=CentroEstudios::findOrFail($id);
+        $centro->delete();
+        return response()->json(['data'=> $centro],200);
     }
 }

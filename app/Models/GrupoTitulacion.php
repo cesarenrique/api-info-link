@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Profesor extends Model
+class GrupoTitulacion extends Model
 {
     use HasFactory;
+
+
+    const TITULACION_OFICIAL_PAIS='1';
+    const CERTIFICACION_INTERNACIONAL='2';
+    const CERTIFICACION_PRIVADA='3';
 
     /**
      * The attributes that are mass assignable.
@@ -16,14 +21,7 @@ class Profesor extends Model
      */
     protected $fillable = [
         'id',
-        'persona_id',
+        'name',
+        'tipo',
     ];
-
-    public function persona(){
-        return $this->BelongsTo(Persona::class,'persona_id','id');
-    }
-
-    public function centroestudios(){
-        return $this->BelongsTo(CentroEstudios::class,'centro_estudios_id','id');
-    }
 }

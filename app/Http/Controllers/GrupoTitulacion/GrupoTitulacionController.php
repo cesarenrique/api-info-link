@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Profesor;
+namespace App\Http\Controllers\GrupoTitulacion;
 
 use App\Http\Controllers\Controller;
-use App\Models\Profesor;
+use App\Models\GrupoTitulacion;
 use Illuminate\Http\Request;
 
-class ProfesorController extends Controller
+class GrupoTitulacionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,8 @@ class ProfesorController extends Controller
     public function index()
     {
         //
-        $profesores=Profesor::All();
-
-        return response()->json(['data'=> $profesores],200);
+        $titulaciones=GrupoTitulacion::All();
+        return response()->json(['data'=> $titulaciones],200);
     }
 
     /**
@@ -41,12 +40,8 @@ class ProfesorController extends Controller
     public function show(string $id)
     {
         //
-        $profesor=Profesor::findOrFail($id);
-        $persona=$profesor->persona;
-        $user=$persona->user;
-        $centroestudio=$persona->centroestudios;
-
-        return response()->json(['data'=> $profesor],200);
+        $titulacion=GrupoTitulacion::findOrFail($id);
+        return response()->json(['data'=> $titulacion],200);
     }
 
     /**
@@ -71,9 +66,8 @@ class ProfesorController extends Controller
     public function destroy(string $id)
     {
         //
-        $profesor=Profesor::findOrFail($id);
-        $profesor->delete();
-        return response()->json(['data'=> $profesor],200);
-
+        $titulacion=GrupoTitulacion::findOrFail($id);
+        $titulacion->delete();
+        return response()->json(['data'=> $titulacion],200);
     }
 }

@@ -5,13 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CentroEstudios extends Model
+class RamaTitulacion extends Model
 {
     use HasFactory;
 
-    const UNIVERSIDAD='01';
-    const INSTITUTO='02';
-    const ACADEMIA='03';
+    const TITULACION_DOCTORADO='1';
+    const TITULACION_MASTER='2';
+    const TITULACION_GRADO='3';
+    const TITULACION_TECNICO='4';
+    const CERTIFICACION_INTERNACIONAL='5';
+    const CURSO_NO_OFICIAL='6';
     /**
      * The attributes that are mass assignable.
      *
@@ -19,18 +22,8 @@ class CentroEstudios extends Model
      */
     protected $fillable = [
         'id',
-        'numberId',
         'name',
-        'nameSEO',
         'direccion',
         'tipo',
     ];
-
-    public function user(){
-        return $this->BelongsTo(User::class,'user_id','id');
-    }
-
-    public function admin(){
-        return $this->BelongsTo(User::class,'admin','id');
-    }
 }
