@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('User_id')->unique()->references('id')->on('users')->onDelete('cascade');
+            $table->string('numberId');
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->string('apellido2')->nullable();
+            $table->string('fechanac');
+            $table->foreignId('user_id')->unique()->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

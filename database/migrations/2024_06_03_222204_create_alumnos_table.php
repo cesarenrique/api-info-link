@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('alumnos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('persona_id')->unique()->references('id')->on('personas')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -3,10 +3,14 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Profesor;
+use App\Models\Alumno;
 use App\Models\Idioma;
 use App\Models\Localidad;
 use App\Models\Pais;
 use App\Models\Provincia;
+use App\Models\User;
+use App\Models\Persona;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +24,10 @@ class DatabaseSeeder extends Seeder
         $this->paises();
         $this->provincias();
         $this->localidades();
+        $this->usuariosFicticios();
+        $this->personasFicticias();
+        $this->alumnosFicticios();
+        $this->profesoresFicticios();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -116,5 +124,89 @@ class DatabaseSeeder extends Seeder
             $localidad->save();
         }
 
+
+    }
+    public function usuariosFicticios(){
+
+        $localidad=Localidad::where('name','like','Benidorm')->get()->first();
+        for($i=1;$i<=5;$i++){
+            $usuario=new User();
+            $usuario->name='usuario'.$i;
+            $usuario->email='usuario'.$i.'@usuario.com';
+            $usuario->password='usuario'.$i;
+            $usuario->localidad_id=$localidad->id;
+            $usuario->save();
+        }
+    }
+
+    public function personasFicticias(){
+        $localidad=Localidad::where('name','like','Benidorm')->get()->first();
+        for($i=1;$i<=5;$i++){
+            $usuario=new User();
+            $usuario->name='persona'.$i;
+            $usuario->email='persona'.$i.'@persona.com';
+            $usuario->password='persona'.$i;
+            $usuario->localidad_id=$localidad->id;
+            $usuario->save();
+            $usuarioAux=User::where('name','like','persona'.$i)->get()->first();
+            $persona=new Persona();
+            $persona->numberId='000000'.$i.'Q';
+            $persona->nombre='nombre de persona'.$i;
+            $persona->apellido='apellido de persona'.$i;
+            $persona->apellido2='apellido2 de persona'.$i;
+            $persona->fechanac='1990/01/01';
+            $persona->user_id=$usuarioAux->id;
+            $persona->save();
+        }
+    }
+
+    public function alumnosFicticios(){
+        $localidad=Localidad::where('name','like','Benidorm')->get()->first();
+        for($i=1;$i<=5;$i++){
+            $usuario=new User();
+            $usuario->name='alumno'.$i;
+            $usuario->email='alumno'.$i.'@alumno.com';
+            $usuario->password='alumno'.$i;
+            $usuario->localidad_id=$localidad->id;
+            $usuario->save();
+            $usuarioAux=User::where('name','like','alumno'.$i)->get()->first();
+            $persona=new Persona();
+            $persona->numberId='000000'.$i.'S';
+            $persona->nombre='nombre de alumno'.$i;
+            $persona->apellido='apellido de alumno'.$i;
+            $persona->apellido2='apellido2 de alumno'.$i;
+            $persona->fechanac='1990/01/01';
+            $persona->user_id=$usuarioAux->id;
+            $persona->save();
+            $personaAux=Persona::where('nombre','like','nombre de alumno'.$i)->get()->first();
+            $alumno=new Alumno();
+            $alumno->persona_id=$personaAux->id;
+            $alumno->save();
+        }
+    }
+
+    public function profesoresFicticios(){
+        $localidad=Localidad::where('name','like','Benidorm')->get()->first();
+        for($i=1;$i<=5;$i++){
+            $usuario=new User();
+            $usuario->name='profesor'.$i;
+            $usuario->email='profesor'.$i.'@profesor.com';
+            $usuario->password='profesor'.$i;
+            $usuario->localidad_id=$localidad->id;
+            $usuario->save();
+            $usuarioAux=User::where('name','like','profesor'.$i)->get()->first();
+            $persona=new Persona();
+            $persona->numberId='000000'.$i.'E';
+            $persona->nombre='nombre de profesor'.$i;
+            $persona->apellido='apellido de profesor'.$i;
+            $persona->apellido2='apellido2 de profesor'.$i;
+            $persona->fechanac='1990/01/01';
+            $persona->user_id=$usuarioAux->id;
+            $persona->save();
+            $personaAux=Persona::where('nombre','like','nombre de profesor'.$i)->get()->first();
+            $profesor=new Profesor();
+            $profesor->persona_id=$personaAux->id;
+            $profesor->save();
+        }
     }
 }

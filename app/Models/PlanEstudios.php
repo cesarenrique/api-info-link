@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class PlanEstudios extends Model
 {
     use HasFactory;
+
+
 }
