@@ -7,5 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Organismo extends Model
 {
+
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'id',
+        'name',
+        'nameSEO',
+        'direccion',
+        'departamento',
+        'user_id',
+        'admin',
+    ];
 }

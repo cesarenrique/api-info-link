@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('institucion_gobiernos', function (Blueprint $table) {
+        Schema::create('pymes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('empresa_id')->unique()->references('id')->on('empresas');
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('institucion_gobiernos');
+        Schema::dropIfExists('pymes');
     }
 };

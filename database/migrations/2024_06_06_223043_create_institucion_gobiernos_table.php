@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('o_n_g_s', function (Blueprint $table) {
+        Schema::create('institucion_gobiernos', function (Blueprint $table) {
             $table->id();
+            $table->string('tipo');
+            $table->foreignId('organismo_id')->unique()->references('id')->on('organismos');
             $table->timestamps();
         });
     }
@@ -22,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('o_n_g_s');
+        Schema::dropIfExists('institucion_gobiernos');
     }
 };

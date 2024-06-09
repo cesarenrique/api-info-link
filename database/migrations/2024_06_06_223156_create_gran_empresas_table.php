@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pymes', function (Blueprint $table) {
+        Schema::create('gran_empresas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('empresa_id')->unique()->references('id')->on('empresas');
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pymes');
+        Schema::dropIfExists('gran_empresas');
     }
 };

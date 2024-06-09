@@ -33,3 +33,11 @@ Route::resource('titulaciones','\App\Http\Controllers\Titulacion\TitulacionContr
 Route::resource('planestudios','\App\Http\Controllers\PlanEstudio\PlanEstudioController',['only'=>['index','store','show','update','destroy']]);
 Route::resource('planestudiosespecializados','\App\Http\Controllers\PlanEstudioEspecializado\PlanEstudioEspecializadoController',['only'=>['index','store','show','update','destroy']]);
 Route::resource('asignaturas','\App\Http\Controllers\Asignatura\AsignaturaController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('organismos','\App\Http\Controllers\Organismo\OrganismoController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('instituciones','\App\Http\Controllers\InstitucionGobierno\InstitucionGobiernoController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('fundaciones','\App\Http\Controllers\Fundacion\FundacionController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('ongs','\App\Http\Controllers\ONG\ONGController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('empresas','\App\Http\Controllers\Empresa\EmpresaController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('autonomos','\App\Http\Controllers\Autonomo\AutonomoController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('pymes','\App\Http\Controllers\Pymes\PymesController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('grandesempresas','\App\Http\Controllers\GranEmpresa\GranEmpresaController',['only'=>['index','store','show','update','destroy']]);

@@ -3,21 +3,29 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Alumno;
 use App\Models\Asignatura;
+use App\Models\Autonomo;
 use App\Models\CentroEstudios;
+use App\Models\Empresa;
+use App\Models\Fundacion;
+use App\Models\GranEmpresa;
 use App\Models\GrupoTitulacion;
+use App\Models\InstitucionGobierno;
+use App\Models\Idioma;
+use App\Models\Localidad;
+use App\Models\ONG;
+use App\Models\Organismo;
+use App\Models\Persona;
 use App\Models\PlanEstudios;
 use App\Models\PlanEstudiosEspecializado;
 use App\Models\Profesor;
-use App\Models\Alumno;
-use App\Models\Idioma;
-use App\Models\Localidad;
 use App\Models\Pais;
 use App\Models\Provincia;
+use App\Models\Pyme;
 use App\Models\RamaTitulacion;
 use App\Models\Titulacion;
 use App\Models\User;
-use App\Models\Persona;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -42,6 +50,7 @@ class DatabaseSeeder extends Seeder
         $this->planEstudios();
         $this->planEstudiosEspecializados();
         $this->asignaturas();
+        $this->organismosEhijos();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -256,9 +265,9 @@ class DatabaseSeeder extends Seeder
 
 
         $titulacion03=[
-            'Masterd Curso Programador de Páginas Web',
-            'Euroinnova CURSO DESARROLLADOR WEB PROFESIONAL',
-            'CoderHouse Carrera de Desarrollo Full Stack'
+            'Curso Programador de Páginas Web',//Masterd
+            'CURSO DESARROLLADOR WEB PROFESIONAL',//Euroinnova
+            'Carrera de Desarrollo Full Stack'//CoderHouse
         ];
 
         for($i=0;$i<count($titulacion03);$i++){
@@ -508,5 +517,71 @@ class DatabaseSeeder extends Seeder
             $asignatura->especializado=$plan->id;
             $asignatura->save();
         }
+    }
+    public function organismosEhijos():void{
+
+        $localidad=Localidad::where('name','like','Benidorm')->get()->first();
+        for($i=1;$i<=6;$i++){
+            $usuario=new User();
+            $usuario->name='organismo'.$i;
+            $usuario->email='organismo'.$i.'@organismo.com';
+            $usuario->password='organismo'.$i;
+            $usuario->localidad_id=$localidad->id;
+            $usuario->save();
+            $usuarioAux=User::where('name','like','organismo'.$i)->get()->first();
+            $organismo=new Organismo();
+            $organismo->name='nombre de organismo'.$i;
+            $organismo->nameSEO='organismo'.$i;
+            $organismo->departamento='general';
+            $organismo->direccion='Plaza de España';
+            $organismo->user_id=$usuarioAux->id;
+            $organismo->admin=$usuarioAux->id;
+            $organismo->save();
+        }
+        $organismos=Organismo::All();
+        $institucion=new InstitucionGobierno();
+        $institucion->tipo='local';
+        $institucion->organismo_id=$organismos[0]->id;
+        $institucion->save();
+
+        $fundacion=new Fundacion();
+        $fundacion->numberId='0000001W';
+        $fundacion->organismo_id=$organismos[1]->id;
+        $fundacion->save();
+
+        $ong=new ONG();
+        $ong->numberId='0000002W';
+        $ong->organismo_id=$organismos[2]->id;
+        $ong->save();
+
+        $empresa=new Empresa();
+        $empresa->numberId='0000003W';
+        $empresa->organismo_id=$organismos[3]->id;
+        $empresa->save();
+
+        $empresa=new Empresa();
+        $empresa->numberId='0000004W';
+        $empresa->organismo_id=$organismos[4]->id;
+        $empresa->save();
+
+        $empresa=new Empresa();
+        $empresa->numberId='0000005W';
+        $empresa->organismo_id=$organismos[5]->id;
+        $empresa->save();
+
+        $empresas=Empresa::All();
+
+        $autonomo=new Autonomo();
+        $autonomo->empresa_id=$empresas[0]->id;
+        $autonomo->save();
+
+        $pyme=new Pyme();
+        $pyme->empresa_id=$empresas[1]->id;
+        $pyme->save();
+
+        $gran=new GranEmpresa();
+        $gran->empresa_id=$empresas[2]->id;
+        $gran->save();
+
     }
 }
