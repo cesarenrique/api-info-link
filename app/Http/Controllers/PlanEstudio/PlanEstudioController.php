@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Titulacion;
+namespace App\Http\Controllers\PlanEstudio;
 
 use App\Http\Controllers\Controller;
-use App\Models\Titulacion;
+use App\Models\PlanEstudios;
 use Illuminate\Http\Request;
 
-class TitulacionController extends Controller
+class PlanEstudioController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class TitulacionController extends Controller
     public function index()
     {
         //
-        $titulaciones=Titulacion::All();
-        return response()->json(['data'=> $titulaciones],200);
+        $planes=PlanEstudios::All();
+
+        return response()->json(['data'=> $planes],200);
     }
 
     /**
@@ -40,8 +41,9 @@ class TitulacionController extends Controller
     public function show(string $id)
     {
         //
-        $titulacion=Titulacion::findOrFail($id);
-        return response()->json(['data'=> $titulacion],200);
+        $plan=PlanEstudios::findOrFail($id);
+
+        return response()->json(['data'=> $plan],200);
     }
 
     /**
@@ -66,8 +68,8 @@ class TitulacionController extends Controller
     public function destroy(string $id)
     {
         //
-        $titulacion=Titulacion::findOrFail($id);
-        $titulacion->delete();
-        return response()->json(['data'=> $titulacion],200);
+        $plan=PlanEstudios::findOrFail($id);
+        $plan->delete();
+        return response()->json(['data'=> $plan],200);
     }
 }

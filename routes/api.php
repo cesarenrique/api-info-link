@@ -29,3 +29,7 @@ Route::resource('profesores','\App\Http\Controllers\Profesor\ProfesorController'
 Route::resource('grupotitulaciones','\App\Http\Controllers\GrupoTitulacion\GrupoTitulacionController',['only'=>['index','store','show','update','destroy']]);
 Route::resource('ramatitulaciones','\App\Http\Controllers\RamaTitulacion\RamaTitulacionController',['only'=>['index','store','show','update','destroy']]);
 Route::resource('centroestudios','\App\Http\Controllers\CentroEstudio\CentroEstudioController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('titulaciones','\App\Http\Controllers\Titulacion\TitulacionController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('planestudios','\App\Http\Controllers\PlanEstudio\PlanEstudioController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('planestudiosespecializados','\App\Http\Controllers\PlanEstudioEspecializado\PlanEstudioEspecializadoController',['only'=>['index','store','show','update','destroy']]);
+Route::resource('asignaturas','\App\Http\Controllers\Asignatura\AsignaturaController',['only'=>['index','store','show','update','destroy']]);

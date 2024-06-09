@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Titulacion;
+namespace App\Http\Controllers\Asignatura;
 
 use App\Http\Controllers\Controller;
-use App\Models\Titulacion;
+use App\Models\Asignatura;
 use Illuminate\Http\Request;
 
-class TitulacionController extends Controller
+class AsignaturaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,9 @@ class TitulacionController extends Controller
     public function index()
     {
         //
-        $titulaciones=Titulacion::All();
-        return response()->json(['data'=> $titulaciones],200);
+        $asignaturas=Asignatura::All();
+
+        return response()->json(['data'=> $asignaturas],200);
     }
 
     /**
@@ -40,8 +41,9 @@ class TitulacionController extends Controller
     public function show(string $id)
     {
         //
-        $titulacion=Titulacion::findOrFail($id);
-        return response()->json(['data'=> $titulacion],200);
+        $asignatura=Asignatura::findOrFail($id);
+
+        return response()->json(['data'=> $asignatura],200);
     }
 
     /**
@@ -66,8 +68,8 @@ class TitulacionController extends Controller
     public function destroy(string $id)
     {
         //
-        $titulacion=Titulacion::findOrFail($id);
-        $titulacion->delete();
-        return response()->json(['data'=> $titulacion],200);
+        $asignatura=Asignatura::findOrFail($id);
+        $asignatura->delete();
+        return response()->json(['data'=> $asignatura],200);
     }
 }

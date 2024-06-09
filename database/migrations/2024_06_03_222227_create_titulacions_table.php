@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('asignaturas', function (Blueprint $table) {
+        Schema::create('titulacions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('nameSEO');
-            $table->foreignId('especializado')->nullable()->references('id')->on('plan_estudios_especializados');
+            $table->foreignId('centro_estudios_id')->references('id')->on('centro_estudios');
+            $table->foreignId('grupo_titulaciones_id')->references('id')->on('grupo_titulacions');
+            $table->foreignId('rama_titulaciones_id')->references('id')->on('rama_titulacions');
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('asignaturas');
+        Schema::dropIfExists('titulacions');
     }
 };

@@ -3,8 +3,11 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Asignatura;
 use App\Models\CentroEstudios;
 use App\Models\GrupoTitulacion;
+use App\Models\PlanEstudios;
+use App\Models\PlanEstudiosEspecializado;
 use App\Models\Profesor;
 use App\Models\Alumno;
 use App\Models\Idioma;
@@ -12,6 +15,7 @@ use App\Models\Localidad;
 use App\Models\Pais;
 use App\Models\Provincia;
 use App\Models\RamaTitulacion;
+use App\Models\Titulacion;
 use App\Models\User;
 use App\Models\Persona;
 use Illuminate\Database\Seeder;
@@ -34,6 +38,10 @@ class DatabaseSeeder extends Seeder
         $this->ramaTitulaciones();
         $this->centrosEstudios();
         $this->profesoresFicticios();
+        $this->titulaciones();
+        $this->planEstudios();
+        $this->planEstudiosEspecializados();
+        $this->asignaturas();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
@@ -201,7 +209,7 @@ class DatabaseSeeder extends Seeder
             "Grado en Ingenieria Multimedia",
             "Formación Profesional en Grado Superior de Sistemas Informaticos en Red",
             "Formación Profesional en Grado Superior Desarrollo de Aplicaciones Web",
-            "Formación Profesional en Grado Superior Desarrollo de Aplicaciones Multimedia",
+            "Formación Profesional en Grado Superior Desarrollo de Aplicaciones Multiplataforma",
             "Formación Profesional en Grado Medio Sistemas Microinformaticos y Redes",
             "Formación Profesional Básico en Informática de Oficina",
             "Formación Profesional Básico en Informática y Comunicaciones",
@@ -422,6 +430,83 @@ class DatabaseSeeder extends Seeder
             $profesor->persona_id=$personaAux->id;
             $profesor->centro_estudios_id=$centros[$i-1]->id;
             $profesor->save();
+        }
+    }
+
+    public function titulaciones():void{
+        $relleno=[ //[nameSEO:CentreEstudios, titulacion, grupo titulacion, rama titulacion]
+            ['iesmz','Formación Profesional en Grado Superior de Sistemas Informaticos en Red','iesmz FP ASIR','Formación Profesional en Grado Superior de Sistemas Informaticos en Red',['Informática',RamaTitulacion::TITULACION_TECNICO.'']],
+            ['iesmz','Formación Profesional en Grado Medio Sistemas Microinformaticos y Redes','iesmz FP SM','Formación Profesional en Grado Medio Sistemas Microinformaticos y Redes',['Informática',RamaTitulacion::TITULACION_TECNICO.'']],
+            ['iesmz','Formación Profesional en Grado Superior Desarrollo de Aplicaciones Multiplataforma','iesmz FP DAM','Formación Profesional en Grado Superior Desarrollo de Aplicaciones Multiplataforma',['Informática',RamaTitulacion::TITULACION_TECNICO.'']],
+        ];
+
+        for($i=0;$i<count($relleno);$i++){
+            $centro=CentroEstudios::where('nameSEO','like',$relleno[$i][0])->get()->first();
+            $grupo=GrupoTitulacion::where('name','like',$relleno[$i][3])->get()->first();
+            $rama=RamaTitulacion::where('name','like',$relleno[$i][4][0])->where('tipo','like',$relleno[$i][4][1])->get()->first();
+            $titulacion=new Titulacion();
+            $titulacion->name=$relleno[$i][1];
+            $titulacion->nameSEO=$relleno[$i][2];
+            $titulacion->centro_estudios_id=$centro->id;
+            $titulacion->grupo_titulaciones_id=$grupo->id;
+            $titulacion->rama_titulaciones_id=$rama->id;
+            $titulacion->save();
+        }
+    }
+
+    public function planEstudios():void{
+        $relleno=[
+          ['Formación Profesional en Grado Superior de Sistemas Informaticos en Red','FP ASIR',2009]
+        ];
+
+        for($i=0;$i<count($relleno);$i++){
+            $plan=new PlanEstudios();
+            $plan->name=$relleno[$i][0];
+            $plan->nameSEO=$relleno[$i][1];
+            $plan->anyo=$relleno[$i][2];
+            $plan->save();
+        }
+    }
+
+    public function planEstudiosEspecializados():void{
+        $relleno=[
+            ['FP ASIR','General','FP ASIR General']
+        ];
+
+        for($i=0;$i<count($relleno);$i++){
+            $plan=PlanEstudios::where('nameSEO','like',$relleno[$i][0])->get()->first();
+            $planE=new PlanEstudiosEspecializado();
+            $planE->name=$relleno[$i][1];
+            $planE->nameSEO=$relleno[$i][2];
+            $planE->plan_estudios_id=$plan->id;
+            $planE->save();
+        }
+    }
+
+    public function asignaturas():void{
+        $relleno=[
+            ['FP ASIR General','Implantacion de sistemas operativos','ISO'],
+            ['FP ASIR General','Planificación y administración de redes','redes'],
+            ['FP ASIR General','Fundamentos de hardware','hardware'],
+            ['FP ASIR General','Gestión de bases de datos','GBD'],
+            ['FP ASIR General','Lenguajes de marcas y sistemas de gestión de información','Lenguaje de marcas'],
+            ['FP ASIR General','Administración de sistemas operativos','ASO'],
+            ['FP ASIR General','Servicios de red e Internet','SRI'],
+            ['FP ASIR General','Implantación de aplicaciones web','IAW'],
+            ['FP ASIR General','Administración de sistemas gestores de base de datos','ASGBD'],
+            ['FP ASIR General','Seguridad y  alta disponibilidad','SAD'],
+            ['FP ASIR General','Proyecto de administración de sistemas informáticos en red','proyecto'],
+            ['FP ASIR General','Formación y orientación laboral','FOL'],
+            ['FP ASIR General','Empresa e iniciativa emprendedora','EIE'],
+            ['FP ASIR General','Formación en centros de trabajo','FCT']
+        ];
+        for($i=0;$i<count($relleno);$i++){
+            $plan=PlanEstudiosEspecializado::where('nameSEO','like',$relleno[$i][0])->get()->first();
+            $asignatura=new Asignatura();
+            $asignatura->name=$relleno[$i][1];
+            $asignatura->nameSEO=$relleno[$i][2];
+            $asignatura->especializado=$plan->id;
+            $asignatura->save();
         }
     }
 }

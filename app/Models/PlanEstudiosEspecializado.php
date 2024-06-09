@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PlanEstudios extends Model
+class PlanEstudiosEspecializado extends Model
 {
     use HasFactory;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,7 +18,6 @@ class PlanEstudios extends Model
         'id',
         'name',
         'nameSEO',
-        'anyo',
+        'plan_estudio_id',
     ];
-
 }

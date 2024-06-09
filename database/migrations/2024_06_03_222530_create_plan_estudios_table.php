@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('plan_estudios', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('nameSEO');
+            $table->integer('anyo');
             $table->timestamps();
         });
     }
